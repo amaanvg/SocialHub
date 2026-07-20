@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="mb-2">
+
+    👋 Welcome back,
+
+    <span class="text-primary">
+
+        {{ request.user.username }}
+
+    </span>
+
+</h2>
+
+<p class="text-muted mb-4">
+
+    Share your thoughts with the SocialHub community.
+
+</p>
+
+<p class="text-muted">
+    Share your thoughts with the SocialHub community.
+</p>
+
+<!-- Create Post Card -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+        <h4>Create a New Post</h4>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">
+                🚀 Create Post
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+<h3 class="mb-3">Recent Posts</h3>
+
+{% for post in posts %}
+
+<div class="card shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex align-items-center mb-3">
+
+    <img src="{{ post.user.profile.profile_image.url }}"
+         class="rounded-circle me-3"
+         width="60"
+         height="60"
+         alt="Profile Picture">
+
+    <div>
+
+        <h5 class="mb-0">
+            <a href="{% url 'user_profile' post.user.username %}"
+               class="text-decoration-none">
+
+                {{ post.user.username }}
+
+            </a>
+        </h5>
+
+        <small class="text-muted">
+    {{ post.created_at|timesince }} ago
+        </small>
+
+    </div>
+
+</div>
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="card-text">
+            {{ post.content }}
+        </p>
+
+        <!-- Likes -->
+        <span class="badge bg-primary">
+            ❤️ {{ post.total_likes }} Likes
+        </span>
+
+        <a href="{% url 'like_post' post.id %}" class="btn btn-outline-primary btn-sm ms-2">
+
+            {% if request.user in post.likes.all %}
+                💔 Unlike
+            {% else %}
+                ❤️ Like
+            {% endif %}
+
+        </a>
+
+        <hr>
+
+        <!-- Comments -->
+        <h5>Comments</h5>
+
+        {% for comment in post.comments.all %}
+
+        <div class="border rounded p-2 mb-2">
+
+            <strong>{{ comment.user.username }}</strong>
+
+            <br>
+
+            {{ comment.content }}
+
+        </div>
+
+        {% empty %}
+
+        <p class="text-muted">No comments yet.</p>
+
+        {% endfor %}
+
+        <!-- Comment Form -->
+
+        <form method="POST" action="{% url 'add_comment' post.id %}">
+
+            {% csrf_token %}
+
+            {{ comment_form.as_p }}
+
+            <button type="submit" class="btn btn-success btn-sm">
+                💬 Add Comment
+            </button>
+
+        </form>
+
+        <!-- Delete Button -->
+
+        {% if post.user == request.user %}
+
+        <hr>
+
+        <form method="POST" action="{% url 'delete_post' post.id %}">
+
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger btn-sm">
+                🗑 Delete Post
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-info">
+    No posts yet.
+</div>
+
+{% endfor %}
+
+{% endblock %}

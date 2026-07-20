@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow-lg mb-4">
+
+    <div class="card-body text-center">
+
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}"
+                 class="rounded-circle mb-3"
+                 width="150"
+                 height="150"
+                 alt="Profile Picture">
+        {% endif %}
+
+        <h2>{{ profile_user.username }}</h2>
+
+        <p class="text-muted">
+            {{ profile.bio }}
+        </p>
+
+        <div class="row text-center mt-4">
+
+            <div class="col">
+
+                <h4>{{ posts.count }}</h4>
+
+                <p>📝 Posts</p>
+
+            </div>
+
+            <div class="col">
+
+                <h4>{{ profile.followers.count }}</h4>
+
+                <p>👥 Followers</p>
+
+            </div>
+
+            <div class="col">
+
+                <h4>{{ profile_user.following.count }}</h4>
+
+                <p>➡️ Following</p>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        {% if request.user != profile_user %}
+
+        <form method="POST"
+              action="{% url 'follow_user' profile_user.username %}">
+
+            {% csrf_token %}
+
+            {% if is_following %}
+
+                <button type="submit" class="btn btn-danger">
+                    ✔ Following
+                </button>
+
+            {% else %}
+
+                <button type="submit" class="btn btn-primary">
+                    ➕ Follow
+                </button>
+
+            {% endif %}
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<h3 class="mb-3">User Posts</h3>
+
+{% for post in posts %}
+
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <div class="d-flex align-items-center mb-3">
+
+            <img src="{{ profile.profile_image.url }}"
+                 class="rounded-circle me-3"
+                 width="50"
+                 height="50"
+                 alt="Profile Picture">
+
+            <div>
+
+                <strong>{{ post.user.username }}</strong>
+
+                <br>
+
+                <small class="text-muted">
+                    {{ post.created_at|timesince }} ago
+                </small>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="card-text">
+            {{ post.content }}
+        </p>
+
+        <span class="badge bg-primary">
+            ❤️ {{ post.total_likes }} Likes
+        </span>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-info">
+
+    This user hasn't posted anything yet.
+
+</div>
+
+{% endfor %}
+
+{% endblock %}
