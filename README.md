@@ -1,18 +1,14 @@
-# SocialHub - Social Media Platform
+# SocialHub
 
-## 📌 Project Overview
-
-SocialHub is a social media web application developed using Django. It allows users to register, log in, create posts, like posts, comment on posts, follow other users, and manage their personal profiles.
-
-This project was built to practice Django authentication, database relationships, CRUD operations, and frontend design using Bootstrap.
+A modern social media web application built using **Python**, **Django**, **SQLite**, and **Bootstrap**. Users can register, log in, create posts, like posts, comment, follow other users, and manage their profiles.
 
 ---
 
-## ✨ Features
+## Features
 
 - User Registration
 - User Login & Logout
-- Profile Management
+- User Profile
 - Upload Profile Picture
 - Update Bio
 - Create Posts
@@ -20,13 +16,14 @@ This project was built to practice Django authentication, database relationships
 - Like / Unlike Posts
 - Comment on Posts
 - Follow / Unfollow Users
+- View Other User Profiles
 - View All Registered Users
-- View User Profiles
-- Responsive Bootstrap UI
+- Responsive Bootstrap User Interface
+- Django Admin Panel
 
 ---
 
-## 🛠 Tech Stack
+## Technologies Used
 
 - Python
 - Django
@@ -37,56 +34,78 @@ This project was built to practice Django authentication, database relationships
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
-SocialMediaPlatform/
+SocialHub/
 │
 ├── accounts/
 ├── posts/
+├── config/
 ├── templates/
 ├── media/
-├── manage.py
-├── db.sqlite3
+├── screenshots/
 ├── requirements.txt
-└── README.md
+├── manage.py
+├── README.md
+└── db.sqlite3
 ```
 
 ---
 
-## 🚀 Installation
+## Installation
 
-Clone the repository
-
-```bash
-git clone <repository-url>
-```
-
-Move into the project folder
+### 1. Clone the repository
 
 ```bash
-cd SocialMediaPlatform
+git clone https://github.com/amaanvg/SocialHub.git
 ```
 
-Install dependencies
+### 2. Open the project
+
+```bash
+cd SocialHub
+```
+
+### 3. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 4. Activate the virtual environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+### 5. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run migrations
+### 6. Run migrations
 
 ```bash
 python manage.py migrate
 ```
 
-Start the development server
+### 7. Start the development server
 
 ```bash
 python manage.py runserver
 ```
 
-Open
+Open your browser and visit:
 
 ```
 http://127.0.0.1:8000/
@@ -94,23 +113,83 @@ http://127.0.0.1:8000/
 
 ---
 
-## 📸 Screenshots
+# Screenshots
 
-(Add screenshots here after uploading them.)
+## Login Page
+
+![Login](screenshots/login.png)
 
 ---
 
-## 🔮 Future Improvements
+## Register Page
+
+![Register](screenshots/register.png)
+
+---
+
+## Home Feed
+
+![Home](screenshots/home.png)
+
+---
+
+## My Profile
+
+![Profile](screenshots/profile.png)
+
+---
+
+## All Users
+
+![Users](screenshots/users.png)
+
+---
+
+## Main Functionalities
+
+### Authentication
+
+- User Registration
+- User Login
+- User Logout
+
+### User Profile
+
+- Upload Profile Picture
+- Update Bio
+- View Other Users
+
+### Social Features
+
+- Create Posts
+- Delete Posts
+- Like / Unlike Posts
+- Add Comments
+- Follow / Unfollow Users
+
+---
+
+## Future Improvements
 
 - Edit Posts
-- Delete Comments
 - Search Users
 - Notifications
 - Dark Mode
-- Messaging System
+- Direct Messaging
+- Image Posts
+- Real-time Chat
+- Password Reset via Email
 
 ---
 
-## 👨‍💻 Author
+## Author
 
-Developed by **Mohammad Amaan**
+**Mohammad Amaan**
+
+GitHub: https://github.com/amaanvg
+
+---
+
+## License
+
+This project is created for educational purposes and personal portfolio use.
